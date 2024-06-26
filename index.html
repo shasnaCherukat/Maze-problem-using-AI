@@ -1,0 +1,47 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Generator</title>
+    <style>
+        /* Add styling for the solution path */
+        .path {
+            background-color: #00ff00; /* Green color for the solution path */
+        }
+    </style>
+</head>
+<body>
+    <h1>Maze Generator</h1>
+    <div id="maze-container">
+        {% for row in maze %}
+            <div class="row">
+                {% for cell in row %}
+                    <div class="cell{% if cell == '#' %} wall{% elif solution_path and (loop.index0, loop.index) in solution_path %} path{% endif %}">{{ cell }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <button id="show-solution-btn">Show Solution</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var solutionPath = document.querySelectorAll('.path');
+            var showSolutionBtn = document.getElementById('show-solution-btn');
+
+            // Initially hide the solution path
+            solutionPath.forEach(function(cell) {
+                cell.style.display = 'none';
+            });
+
+            // Toggle visibility on button click
+            showSolutionBtn.addEventListener('click', function() {
+                solutionPath.forEach(function(cell) {
+                    cell.style.display = 'block';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
